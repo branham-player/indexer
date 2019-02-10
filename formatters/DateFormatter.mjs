@@ -18,24 +18,66 @@ export default class DateFormatter {
         }
 
         return {
-            date: this.createJsDateObject(),
+            assumptions: this.getAssumptions(),
+            date: this.getJsDateObject(),
             modifier: modifier,
             standardDate: this.standardDate
         };
     }
 
-    createJsDateObject() {
+    getAssumptions() {
+        const givenMonthIndex = parseInt(this.standardDate.substr(3, 2)) - 1;
+        const givenDay = parseInt(this.standardDate.substr(5, 2));
+        
+        if (givenMonthIndex == -1 && assumedDay == 0) {
+            return {
+                day: {
+                    assumedDay: 1,
+                    givenDay: givenDay
+                },
+                month: {
+                    assumedMonthIndex: 0,
+                    givenMonthIndex: givenMonthIndex
+                }
+            };
+        } else if (givenMonthIndex == -1) {
+            return {
+                day: null,
+                month: {
+                    assumedMonthIndex: 0,
+                    givenMonthIndex: givenMonthIndex
+                }
+            };
+        } else if (givenDay == 0) {
+            return {
+                day: {
+                    assumedDay: 1,
+                    givenDay: givenDay
+                },
+                month: null
+            };
+        } else {
+            return null;
+        }
+    }
+
+    getJsDateObject() {
         const year = 1900 + parseInt(this.standardDate.substr(0, 2));
-        const monthIndex = parseInt(this.standardDate.substr(3, 2)) - 1;
-        var day = parseInt(this.standardDate.substr(5, 2));
+        let monthIndex = parseInt(this.standardDate.substr(3, 2)) - 1;
+
+        // When only the year is known, the month is given as "00"
+        if (monthIndex == -1) {
+            monthIndex = 0;
+        }
+
+        let day = parseInt(this.standardDate.substr(5, 2));
 
         // When only the month and year are known, the day is given as "00"
-        // Assume the first of the month
         if (day == 0) {
             day = 1;
         }
 
-        return new Date(year, monthIndex, day);
+        return new Date(year, monthIndex, day, 0, 0, 0, 0);
     }
 
     getModifier() {
