@@ -2,6 +2,26 @@
 
 export default class LocationConstants {
 
+    // region Europe
+
+    static get GERMANY() {
+        return {
+            abbreviation: 'DE',
+            name: 'Germany'
+        };
+    }
+
+    // endregion
+
+    // region North America
+
+    static get CANADA() {
+        return {
+            abbreviation: 'CA',
+            name: 'Canada'
+        };
+    }
+
     static get CANADA_PROVINCES() {
         return {
             'AB': 'Alberta',
@@ -21,13 +41,17 @@ export default class LocationConstants {
     }
 
     static get UNITED_STATES() {
-        return 'United States'
+        return {
+            abbreviation: 'US',
+            name: 'United States'
+        };
     }
 
     static get US_STATES() {
         return {
             'AL': 'Alabama',
             'AK': 'Alaska',
+            'AS': 'American Samoa',
             'AZ': 'Arizona',
             'AR': 'Arkansas',
             'CA': 'California',
@@ -35,8 +59,10 @@ export default class LocationConstants {
             'CT': 'Connecticut',
             'DE': 'Delaware',
             'DC': 'District Of Columbia',
+            'FM': 'Federated States Of Micronesia',
             'FL': 'Florida',
             'GA': 'Georgia',
+            'GU': 'Guam',
             'HI': 'Hawaii',
             'ID': 'Idaho',
             'IL': 'Illinois',
@@ -46,6 +72,7 @@ export default class LocationConstants {
             'KY': 'Kentucky',
             'LA': 'Louisiana',
             'ME': 'Maine',
+            'MH': 'Marshall Islands',
             'MD': 'Maryland',
             'MA': 'Massachusetts',
             'MI': 'Michigan',
@@ -61,10 +88,13 @@ export default class LocationConstants {
             'NY': 'New York',
             'NC': 'North Carolina',
             'ND': 'North Dakota',
+            'MP': 'Northern Mariana Islands',
             'OH': 'Ohio',
             'OK': 'Oklahoma',
             'OR': 'Oregon',
+            'PW': 'Palau',
             'PA': 'Pennsylvania',
+            'PR': 'Puerto Rico',
             'RI': 'Rhode Island',
             'SC': 'South Carolina',
             'SD': 'South Dakota',
@@ -72,6 +102,7 @@ export default class LocationConstants {
             'TX': 'Texas',
             'UT': 'Utah',
             'VT': 'Vermont',
+            'VI': 'Virgin Islands',
             'VA': 'Virginia',
             'WA': 'Washington',
             'WV': 'West Virginia',
@@ -79,4 +110,6 @@ export default class LocationConstants {
             'WY': 'Wyoming'
         };
     }
+
+    // endregion
 }

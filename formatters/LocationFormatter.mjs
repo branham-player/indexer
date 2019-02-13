@@ -5,19 +5,48 @@ import LocationConstants from '../constants/LocationConstants.mjs';
 export default class LocationFormatter {
 
     constructor(location) {
-        this.location = location.trim();
+        // Some sources report more than one location at a time
+        // Take only the first
+        const locations = location.split('/');
+
+        this.location = locations[0].trim();
+        this.sanitizedLocation = this.location.replace(/[^A-Za-z0-9 ]/g, '');
     }
 
     format() {
+        // Edge cases
+        if (this.location.toLowerCase() == 'new england area') {
+            return {
+                city: null,
+                country: {
+                    abbreviation: LocationConstants.US,
+                    name: LocationConstants.UNITED_STATES
+                },
+                displayName: 'New England Area',
+                givenName: this.location,
+                state: null
+            }
+        } else if (this.location.toLowerCase() == 'unknown') {
+            return {
+                city: null,
+                country: null,
+                displayName: 'Unknown',
+                givenName: 'Unknown',
+                state: null
+            };
+        }
+
         return {
+            city: this.getCity(),
+            country: this.getCountry(),
             displayName: this.formatDisplayName(),
-            state: this.getState()
+            givenName: this.location,
+            state: this.getStateOrTerritory()
         }
     }
 
     formatDisplayName() {
-        const sanitizedLocation = this.location.replace(/[^A-Za-z0-9 ]/g, '');
-        const parts = sanitizedLocation.split(' ');
+        const parts = this.sanitizedLocation.split(' ');
 
         if (parts.length >= 2) {
             parts[parts.length - 2] = parts[parts.length - 2] + ',';
@@ -31,23 +60,55 @@ export default class LocationFormatter {
         return parts.join(' ');
     }
 
-    getState() {
-        const sanitizedLocation = this.location.replace(/[^A-Za-z0-9 ]/g, '');
-        const parts = sanitizedLocation.split(' ');
-        const lastPart = parts[parts.length - 1];
+    getCity() {
+        const parts = this.sanitizedLocation.split(' ');
+        return parts.slice(0, parts.length - 1).join(' ');
+    }
 
-        const presumedCity = parts.slice(0, parts.length - 1).join(' ');
-        let presumedUSState = null;
-        let presumedCountry = null;
+    getCountry() {
+        const parts = this.sanitizedLocation.split(' ');
+        const presumedStateOrTerritory = parts[parts.length - 1];
+        const stateOrTerritory = presumedStateOrTerritory.toUpperCase();
 
-        // US states are always abbreviated to two letters, like 'PA'
-        if (lastPart.length == 2) {
-            const state = lastPart.toUpperCase();
+        // Canadaian territories and US states are always abbreviated to two
+        // letters, like 'PA' or 'AB'
+        if (presumedStateOrTerritory.length == 2) {
+            if (LocationConstants.US_STATES.hasOwnProperty(stateOrTerritory)) {
+                return LocationConstants.UNITED_STATES;
+            } else if (LocationConstants.CANADA_PROVINCES.hasOwnProperty(stateOrTerritory)) {
+                return LocationConstants.CANADA;
+            } else {
+                return null;
+            }
+        } else {
+            if (stateOrTerritory == LocationConstants.GERMANY.name.toUpperCase()) {
+                return LocationConstants.GERMANY;
+            }
+        }
+    }
 
-            return {
-                abbreviation: state,
-                name: LocationConstants.US_STATES[state]
-            };
+    getStateOrTerritory() {
+        const parts = this.sanitizedLocation.split(' ');
+        const presumedStateOrTerritory = parts[parts.length - 1];
+
+        // Canadaian territories and US states are always abbreviated to two
+        // letters, like 'PA' or 'AB'
+        if (presumedStateOrTerritory.length == 2) {
+            const stateOrTerritory = presumedStateOrTerritory.toUpperCase();
+
+            if (LocationConstants.US_STATES.hasOwnProperty(stateOrTerritory)) {
+                return {
+                    abbreviation: stateOrTerritory,
+                    name: LocationConstants.US_STATES[stateOrTerritory]
+                };
+            } else if (LocationConstants.CANADA_PROVINCES.hasOwnProperty(stateOrTerritory)) {
+                return {
+                    abbreviation: stateOrTerritory,
+                    name: LocationConstants.CANADA_PROVINCES[stateOrTerritory]
+                };
+            } else {
+                return null;
+            }
         } else {
             return null
         }

@@ -5,6 +5,7 @@ import DateFormatter from './formatters/DateFormatter.mjs';
 import LocationFormatter from './formatters/LocationFormatter.mjs'
 import fs from 'fs';
 
+//const year1947 = fs.readFileSync('../original-sources/branham.org/1955.html');
 const year1947 = fs.readFileSync('../original-sources/branham.org/1955.html');
 const $ = cheerio.load(year1947);
 
