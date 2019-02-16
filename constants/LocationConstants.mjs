@@ -11,6 +11,13 @@ export default class LocationConstants {
         };
     }
 
+    static get SWITZERLAND() {
+        return {
+            abbreviation: 'CH',
+            name: 'Switzerland'
+        };
+    }
+
     // endregion
 
     // region North America

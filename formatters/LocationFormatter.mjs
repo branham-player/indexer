@@ -14,7 +14,7 @@ export default class LocationFormatter {
     }
 
     format() {
-        // Edge cases
+        // Edge cases: 48-0000, 53-0500, 58-0500
         if (this.location.toLowerCase() == 'new england area') {
             return {
                 city: null,
@@ -36,33 +36,38 @@ export default class LocationFormatter {
             };
         }
 
+        const city = this.getCity();
+        const country = this.getCountry();
+        const state = this.getStateOrTerritory();
+        let formattedName = '';
+
+        if (city == null) {
+            formattedName = `${state.name}, ${country.name}`;
+        } else if (state == null) {
+            formattedName = `${city}, ${country.name}`;
+        } else {
+            formattedName = `${city}, ${state.abbreviation}`;
+        }
+
         return {
-            city: this.getCity(),
-            country: this.getCountry(),
-            displayName: this.formatDisplayName(),
+            city: city,
+            country: country,
+            displayName: formattedName,
             givenName: this.location,
-            state: this.getStateOrTerritory()
+            state: state
         }
-    }
-
-    formatDisplayName() {
-        const parts = this.sanitizedLocation.split(' ');
-
-        if (parts.length >= 2) {
-            parts[parts.length - 2] = parts[parts.length - 2] + ',';
-
-            // US states and Canadian provinces are indicated by a two character abbreviation
-            if (parts[parts.length - 1].length == 2) {
-                parts[parts.length - 1] = parts[parts.length - 1].toUpperCase();
-            }
-        }
-
-        return parts.join(' ');
     }
 
     getCity() {
         const parts = this.sanitizedLocation.split(' ');
-        return parts.slice(0, parts.length - 1).join(' ');
+        const presumedCity = parts.slice(0, parts.length - 1).join(' ');
+
+        // Edge case: 55-0400
+        if (presumedCity.toLowerCase() == 'alberta') {
+            return null;
+        }
+
+        return presumedCity;
     }
 
     getCountry() {
@@ -77,19 +82,33 @@ export default class LocationFormatter {
                 return LocationConstants.UNITED_STATES;
             } else if (LocationConstants.CANADA_PROVINCES.hasOwnProperty(stateOrTerritory)) {
                 return LocationConstants.CANADA;
-            } else {
-                return null;
             }
         } else {
             if (stateOrTerritory == LocationConstants.GERMANY.name.toUpperCase()) {
                 return LocationConstants.GERMANY;
+            } else if (stateOrTerritory == LocationConstants.SWITZERLAND.name.toUpperCase()) {
+                return LocationConstants.SWITZERLAND;
+            } else if (stateOrTerritory == LocationConstants.CANADA.name.toUpperCase()) {
+                return LocationConstants.CANADA;
             }
         }
+
+        return null;
     }
 
     getStateOrTerritory() {
         const parts = this.sanitizedLocation.split(' ');
         const presumedStateOrTerritory = parts[parts.length - 1];
+
+        // Edge case: 55-0400
+        if (parts[0].toLowerCase() == 'alberta') {
+            const stateOrTerritory = 'AB';
+
+            return {
+                abbreviation: stateOrTerritory,
+                name: LocationConstants.CANADA_PROVINCES[stateOrTerritory]
+            };
+        }
 
         // Canadaian territories and US states are always abbreviated to two
         // letters, like 'PA' or 'AB'
@@ -106,11 +125,9 @@ export default class LocationFormatter {
                     abbreviation: stateOrTerritory,
                     name: LocationConstants.CANADA_PROVINCES[stateOrTerritory]
                 };
-            } else {
-                return null;
             }
-        } else {
-            return null
         }
+        
+        return null;
     }
 }
