@@ -1,34 +1,48 @@
 'use strict';
 
+import moment from 'moment';
+
 export default class DateFormatter {
 
-    constructor(standardDate) {
-        this.standardDate = standardDate.toUpperCase().trim();
+    constructor(givenDate) {
+        this.givenDate = givenDate.trim();
     }
 
     format() {
-        const symbol = this.getModifier();
-        let modifier = null;
 
-        if (symbol != null) {
-            modifier = {
-                meaning: this.mapModifierFromSymbol(symbol),
-                symbol: symbol
-            }
+        const assumptions = this.getAssumptions();
+        const determinedDate = this.getJsDateObject();
+        const modifier = this.getModifier();
+        let displayName = '';
+
+        if (assumptions == null) {
+            displayName = moment(determinedDate).format('MMMM Do[,] YYYY');
+        } else if (assumptions.day == null) {
+            displayName = moment(determinedDate).format('MMMM[,] YYYY');
+        } else if (assumptions.month == null) {
+            displayName = moment(determinedDate).format('[Unknown Month] Do, YYYY');
+        } else {
+            displayName = moment(determinedDate).format('[Unknown Day and Month] YYYY');
+        }
+
+        if (modifier != null) {
+            displayName = `${modifier.meaning} on ${displayName}`;
         }
 
         return {
-            assumptions: this.getAssumptions(),
-            date: this.getJsDateObject(),
-            modifier: modifier,
-            standardDate: this.standardDate
+            assumptions: assumptions,
+            date: determinedDate,
+            displayName: displayName,
+            givenDate: this.givenDate,
+            modifier: modifier
         };
     }
 
     getAssumptions() {
-        const givenMonthIndex = parseInt(this.standardDate.substr(3, 2)) - 1;
-        const givenDay = parseInt(this.standardDate.substr(5, 2));
+        const givenMonthIndex = parseInt(this.givenDate.substr(3, 2)) - 1;
+        const givenDay = parseInt(this.givenDate.substr(5, 2));
         
+        // Edge cases: 48-0000, 53-0500
         if (givenMonthIndex == -1 && assumedDay == 0) {
             return {
                 day: {
@@ -56,21 +70,21 @@ export default class DateFormatter {
                 },
                 month: null
             };
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     getJsDateObject() {
-        const year = 1900 + parseInt(this.standardDate.substr(0, 2));
-        let monthIndex = parseInt(this.standardDate.substr(3, 2)) - 1;
+        const year = 1900 + parseInt(this.givenDate.substr(0, 2));
+        let monthIndex = parseInt(this.givenDate.substr(3, 2)) - 1;
 
         // When only the year is known, the month is given as "00"
         if (monthIndex == -1) {
             monthIndex = 0;
         }
 
-        let day = parseInt(this.standardDate.substr(5, 2));
+        let day = parseInt(this.givenDate.substr(5, 2));
 
         // When only the month and year are known, the day is given as "00"
         if (day == 0) {
@@ -82,13 +96,18 @@ export default class DateFormatter {
 
     getModifier() {
         const pattern = new RegExp('[A-Z]$');
-        const matches = pattern.exec(this.standardDate);
+        const matches = pattern.exec(this.givenDate.toUpperCase());
 
-        if (matches == null) {
-            return null
-        } else {
-            return matches.toString();
+        if (matches != null) {
+            const symbol = matches.toString();
+
+            return {
+                meaning: this.mapModifierFromSymbol(symbol),
+                symbol: symbol
+            };
         }
+
+        return null;
     }
 
     mapModifierFromSymbol(modifier) {
