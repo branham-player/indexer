@@ -9,17 +9,17 @@ import fs from 'fs';
 const year1947 = fs.readFileSync('../original-sources/branham.org/1955.html');
 const $ = cheerio.load(year1947);
 
- $('div.messagebox div.prodtext span.show-for-small-down').each((index, sermonDate) => {
-    const fullDate = $(sermonDate).text();
-    const formatter = new DateFormatter(fullDate);
-    
-    //console.log(formatter.format());
-});
+$('div.messagebox').each((index, sermon) => {
+    const date = $(sermon).find('div.prodtext span.show-for-small-down').text();
+    const dateFormatter = new DateFormatter(date);
 
-$('div.messagebox div.large-10 div.prodtext2').each((index, location) => {
-    const fullLocation = $(location).text();
-    const formatter = new LocationFormatter(fullLocation);
+    const location = $(sermon).find('div.large-10 div.prodtext2').text();
+    const locationFormatter = new LocationFormatter(location);
     
-    console.log(formatter.format());
-});
+    const metadata = {
+        date: dateFormatter.format(),
+        location: locationFormatter.format()
+    };
 
+    console.log(metadata);
+});
