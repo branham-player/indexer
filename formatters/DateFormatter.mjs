@@ -1,5 +1,6 @@
 'use strict';
 
+import DateConstants from '../constants/DateConstants.mjs';
 import moment from 'moment';
 
 export default class DateFormatter {
@@ -16,17 +17,17 @@ export default class DateFormatter {
         let displayName = '';
 
         if (assumptions == null) {
-            displayName = moment(determinedDate).format('MMMM Do[,] YYYY');
+            displayName = moment(determinedDate).format(DateConstants.FULL_DATE);
         } else if (assumptions.day == null) {
-            displayName = moment(determinedDate).format('MMMM[,] YYYY');
+            displayName = moment(determinedDate).format(DateConstants.DAY_MISSING);
         } else if (assumptions.month == null) {
-            displayName = moment(determinedDate).format('[Unknown Month] Do, YYYY');
+            displayName = moment(determinedDate).format(DateConstants.MONTH_MISSING);
         } else {
-            displayName = moment(determinedDate).format('[Unknown Day and Month] YYYY');
+            displayName = moment(determinedDate).format(DateConstants.YEAR_ONLY);
         }
 
         if (modifier != null) {
-            displayName = `${modifier.meaning} on ${displayName}`;
+            displayName = `${modifier.meaning} ${DateConstants.MODIFIER_DATE_JOINING_PREPOSITION} ${displayName}`;
         }
 
         return {
@@ -100,38 +101,14 @@ export default class DateFormatter {
 
         if (matches != null) {
             const symbol = matches.toString();
+            const modifer = DateConstants.MODIFIERS[symbol];
 
             return {
-                meaning: this.mapModifierFromSymbol(symbol),
+                meaning: modifer,
                 symbol: symbol
             };
         }
 
         return null;
-    }
-
-    mapModifierFromSymbol(modifier) {
-        switch(modifier) {
-            case 'A':
-                return 'Afternoon';
-            
-            case 'B':
-                return 'Breakfast';
-
-            case 'E':
-                return 'Evening';
-            
-            case 'M':
-                return 'Morning';
-            
-            case 'S':
-                return 'Sunrise';
-            
-            case 'W':
-                return 'Wedding';
-            
-            default:
-                return 'Miscellaneous';
-        }
     }
 }
