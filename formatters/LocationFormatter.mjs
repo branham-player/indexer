@@ -26,7 +26,7 @@ export default class LocationFormatter {
                 givenName: this.location,
                 state: null
             }
-        } else if (this.location.toLowerCase() == 'unknown') {
+        } else if (this.location.toLowerCase() == 'unknown' || this.location == '') {
             return {
                 city: null,
                 country: null,
@@ -44,6 +44,7 @@ export default class LocationFormatter {
         if (city == null) {
             formattedName = `${state.name}, ${country.name}`;
         } else if (state == null) {
+            console.log(`This is: ${this.location}`);
             formattedName = `${city}, ${country.name}`;
         } else {
             formattedName = `${city}, ${state.abbreviation}`;
@@ -101,7 +102,7 @@ export default class LocationFormatter {
         const presumedStateOrTerritory = parts[parts.length - 1];
 
         // Edge case: 55-0400
-        if (parts[0].toLowerCase() == 'alberta') {
+        if (parts[0].toLowerCase() ==  LocationConstants.CANADA_PROVINCES['AB'].toLowerCase()) {
             const stateOrTerritory = 'AB';
 
             return {

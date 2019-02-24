@@ -44,7 +44,7 @@ export default class DateFormatter {
         const givenDay = parseInt(this.givenDate.substr(5, 2));
         
         // Edge cases: 48-0000, 53-0500
-        if (givenMonthIndex == -1 && assumedDay == 0) {
+        if (givenMonthIndex == -1 && givenDay == 0) {
             return {
                 day: {
                     assumedDay: 1,
