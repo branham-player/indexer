@@ -44,7 +44,6 @@ export default class LocationFormatter {
         if (city == null) {
             formattedName = `${state.name}, ${country.name}`;
         } else if (state == null) {
-            console.log(`This is: ${this.location}`);
             formattedName = `${city}, ${country.name}`;
         } else {
             formattedName = `${city}, ${state.abbreviation}`;
