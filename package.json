@@ -4,7 +4,7 @@
   "description": "A parser which indexes unstructured collections of data representing William Branham's complete sermon library and structures them for loading into a data ingester",
   "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --experimental-modules index.mjs ../original-sources/ ./output.json"
   },
   "repository": {
     "type": "git",

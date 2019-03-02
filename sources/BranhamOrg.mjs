@@ -30,15 +30,19 @@ export default class BranhamOrg {
                 const titleFormatter = new TitleFormatter(title);
 
                 const formattedDate = dateFormatter.format();
-                const url = $(sermon).find('div.large-8.end a').attr('href').trim();
+                const url = $(sermon).find('div.large-8.end a').attr('href');
+                // https://s3.amazonaws.com/branhamorgstreaming/ENG/65-0116X%20Wedding%20Ceremony%20VGR.m4a
                 
-                this.addToMasterIndex(
-                    formattedDate.givenDate,
-                    formattedDate,
-                    locationFormatter.format(),
-                    titleFormatter.format(),
-                    url
-                );
+            // Edge case: 62-1030X
+                if (url != undefined && url != '') {
+                    this.addToMasterIndex(
+                        formattedDate.givenDate,
+                        formattedDate,
+                        locationFormatter.format(),
+                        titleFormatter.format(),
+                        url.trim()
+                    );   
+                }
             });
         }
     }

@@ -1,11 +1,7 @@
 'use strict';
 
 export default class DateConstants {
-
-    static get MODIFIER_DATE_JOINING_PREPOSITION() {
-        return 'on';
-    }
-
+    
     // region Date Formatting
 
     static get DAY_MISSING() {
@@ -27,6 +23,18 @@ export default class DateConstants {
     // endregion
 
     // region Modifier Formatting
+
+    static get MODIFIER_FOR_DISPLAY_NAME() {
+        return {
+            'A': 'Afternoon of',
+            'B': 'Breakfast on',
+            'E': 'Evening of',
+            'M': 'Morning of',
+            'S': 'Sunrise Service on',
+            'W': 'Wedding on',
+            'X': ''
+        };
+    }
 
     static get MODIFIERS() {
         return {

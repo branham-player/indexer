@@ -13,7 +13,7 @@ export default class DateFormatter {
 
         const assumptions = this.getAssumptions();
         const determinedDate = this.getJsDateObject();
-        const modifier = this.getModifier();
+        let modifier = this.getModifier();
         let displayName = '';
 
         if (assumptions == null) {
@@ -27,7 +27,13 @@ export default class DateFormatter {
         }
 
         if (modifier != null) {
-            displayName = `${modifier.meaning} ${DateConstants.MODIFIER_DATE_JOINING_PREPOSITION} ${displayName}`;
+            displayName = `${modifier.displayName} ${displayName}`;
+
+        // Remove the displayName property, since it was just used
+            modifier = {
+                meaning: modifier.meaning,
+                symbol: modifier.symbol
+            }
         }
 
         return {
@@ -92,7 +98,7 @@ export default class DateFormatter {
             day = 1;
         }
 
-        return new Date(year, monthIndex, day, 0, 0, 0, 0);
+        return new Date(Date.UTC(year, monthIndex, day, 0, 0, 0, 0));
     }
 
     getModifier() {
@@ -101,9 +107,11 @@ export default class DateFormatter {
 
         if (matches != null) {
             const symbol = matches.toString();
+            const displayName = DateConstants.MODIFIER_FOR_DISPLAY_NAME[symbol];
             const modifer = DateConstants.MODIFIERS[symbol];
 
             return {
+                displayName: displayName,
                 meaning: modifer,
                 symbol: symbol
             };
