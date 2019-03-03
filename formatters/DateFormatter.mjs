@@ -27,7 +27,7 @@ export default class DateFormatter {
         }
 
         if (modifier != null) {
-            displayName = `${modifier.displayName} ${displayName}`;
+            displayName = `${modifier.displayName} ${displayName}`.trim();
 
         // Remove the displayName property, since it was just used
             modifier = {

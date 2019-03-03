@@ -1,10 +1,12 @@
 'use strict';
 
 import cheerio from 'cheerio';
+import fs from 'fs';
+
 import DateFormatter from '../formatters/DateFormatter.mjs';
 import LocationFormatter from '../formatters/LocationFormatter.mjs';
 import TitleFormatter from '../formatters/TitleFormatter.mjs';
-import fs from 'fs';
+import UrlFormatter from '../formatters/UrlFormatter.mjs'
 
 export default class BranhamOrg {
 
@@ -29,18 +31,21 @@ export default class BranhamOrg {
                 const title = $(sermon).find('div.prodtext span.prodtexttitle').text();
                 const titleFormatter = new TitleFormatter(title);
 
-                const formattedDate = dateFormatter.format();
                 const url = $(sermon).find('div.large-8.end a').attr('href');
+
+                const formattedDate = dateFormatter.format();
                 // https://s3.amazonaws.com/branhamorgstreaming/ENG/65-0116X%20Wedding%20Ceremony%20VGR.m4a
                 
             // Edge case: 62-1030X
                 if (url != undefined && url != '') {
+                    const urlFormatter = new UrlFormatter(url);
+
                     this.addToMasterIndex(
                         formattedDate.givenDate,
                         formattedDate,
                         locationFormatter.format(),
                         titleFormatter.format(),
-                        url.trim()
+                        urlFormatter.format()
                     );   
                 }
             });
