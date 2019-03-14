@@ -17,13 +17,13 @@ export default class DateFormatter {
         let displayName = '';
 
         if (assumptions == null) {
-            displayName = moment(determinedDate).format(DateConstants.FULL_DATE);
-        } else if (assumptions.day == null) {
-            displayName = moment(determinedDate).format(DateConstants.DAY_MISSING);
-        } else if (assumptions.month == null) {
-            displayName = moment(determinedDate).format(DateConstants.MONTH_MISSING);
+            displayName = moment.utc(determinedDate).format(DateConstants.FULL_DATE);
+        } else if (assumptions.day != null) {
+            displayName = moment.utc(determinedDate).format(DateConstants.DAY_MISSING);
+        } else if (assumptions.month != null) {
+            displayName = moment.utc(determinedDate).format(DateConstants.MONTH_MISSING);
         } else {
-            displayName = moment(determinedDate).format(DateConstants.YEAR_ONLY);
+            displayName = moment.utc(determinedDate).format(DateConstants.YEAR_ONLY);
         }
 
         if (modifier != null) {
@@ -107,6 +107,13 @@ export default class DateFormatter {
 
         if (matches != null) {
             const symbol = matches.toString();
+            
+            // Some places use "W" for wedding ceremonies, but Branham.org does not,
+            // which is our source of truth, so map them to "X", as it does
+            if (symbol == 'W') {
+                symbol = 'X';
+            }
+
             const displayName = DateConstants.MODIFIER_FOR_DISPLAY_NAME[symbol];
             const modifer = DateConstants.MODIFIERS[symbol];
 

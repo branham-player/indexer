@@ -34,8 +34,7 @@ export default class BranhamOrg {
                 const url = $(sermon).find('div.large-8.end a').attr('href');
 
                 const formattedDate = dateFormatter.format();
-                // https://s3.amazonaws.com/branhamorgstreaming/ENG/65-0116X%20Wedding%20Ceremony%20VGR.m4a
-                
+
             // Edge case: 62-1030X
                 if (url != undefined && url != '') {
                     const urlFormatter = new UrlFormatter(url);
@@ -55,6 +54,7 @@ export default class BranhamOrg {
     addToMasterIndex(key, date, location, title, url) {
 
         if (this.masterIndex.hasOwnProperty(key)) {
+            this.masterIndex[key].id = key;
             this.masterIndex[key].date = date;
             this.masterIndex[key].location = location;
             this.masterIndex[key].title = title;
@@ -64,6 +64,7 @@ export default class BranhamOrg {
         }
 
         this.masterIndex[key] = {
+            id: key,
             date: date,
             location: location,
             title: title,

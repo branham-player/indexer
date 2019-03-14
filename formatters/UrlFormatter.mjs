@@ -8,7 +8,7 @@ export default class UrlFormatter {
 
     format() {
         const secure = this.url.replace(
-            /^http:\/\/vgrm4a.branham.org/i,
+            /^https?:\/\/vgrm4a.branham.org/i,
             'https://s3.amazonaws.com/branhamorgstreaming'
         )
 

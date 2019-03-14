@@ -13,7 +13,7 @@ export default class DateConstants {
     }
 
     static get MONTH_MISSING() {
-        return '[Unknown Month] Do, YYYY';
+        return '[Unknown Month in] YYYY';
     }
 
     static get YEAR_ONLY() {
@@ -31,7 +31,6 @@ export default class DateConstants {
             'E': 'Evening of',
             'M': 'Morning of',
             'S': 'Sunrise Service on',
-            'W': 'Wedding on',
             'X': ''
         };
     }
@@ -43,7 +42,6 @@ export default class DateConstants {
             'E': 'Evening',
             'M': 'Morning',
             'S': 'Sunrise',
-            'W': 'Wedding',
             'X': 'Miscellaneous'
         };
     }
