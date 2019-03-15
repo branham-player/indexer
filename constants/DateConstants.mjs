@@ -13,7 +13,7 @@ export default class DateConstants {
     }
 
     static get MONTH_MISSING() {
-        return '[Unknown Month in] YYYY';
+        return '[Unknown Day and Month] YYYY';
     }
 
     static get YEAR_ONLY() {
