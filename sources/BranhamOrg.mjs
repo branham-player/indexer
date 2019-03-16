@@ -40,7 +40,7 @@ export default class BranhamOrg {
                     const urlFormatter = new UrlFormatter(url);
 
                     this.addToMasterIndex(
-                        formattedDate.givenDate,
+                        formattedDate.givenDate.toUpperCase(),
                         formattedDate,
                         locationFormatter.format(),
                         titleFormatter.format(),

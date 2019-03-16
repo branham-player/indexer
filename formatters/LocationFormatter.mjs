@@ -15,23 +15,23 @@ export default class LocationFormatter {
 
     format() {
         // Edge cases: 48-0000, 53-0500, 58-0500
-        if (this.location.toLowerCase() == 'new england area') {
+        if (this.location.toLowerCase() == LocationConstants.NEW_ENGLAND_AREA.toLowerCase()) {
             return {
                 city: null,
                 country: {
                     abbreviation: LocationConstants.US,
                     name: LocationConstants.UNITED_STATES
                 },
-                displayName: 'New England Area',
+                displayName:  LocationConstants.NEW_ENGLAND_AREA,
                 givenName: this.location,
                 state: null
             }
-        } else if (this.location.toLowerCase() == 'unknown' || this.location == '') {
+        } else if (this.location.toLowerCase() == LocationConstants.UNKNOWN.toLowerCase() || this.location == '') {
             return {
                 city: null,
                 country: null,
-                displayName: 'Unknown',
-                givenName: 'Unknown',
+                displayName: LocationConstants.UNKNOWN_LOCATION,
+                givenName: this.location,
                 state: null
             };
         }
@@ -63,7 +63,7 @@ export default class LocationFormatter {
         const presumedCity = parts.slice(0, parts.length - 1).join(' ');
 
         // Edge case: 55-0400
-        if (presumedCity.toLowerCase() == 'alberta') {
+        if (presumedCity.toLowerCase() == LocationConstants.CANADA_PROVINCES['AB'].toLowerCase()) {
             return null;
         }
 
@@ -101,7 +101,7 @@ export default class LocationFormatter {
         const presumedStateOrTerritory = parts[parts.length - 1];
 
         // Edge case: 55-0400
-        if (parts[0].toLowerCase() ==  LocationConstants.CANADA_PROVINCES['AB'].toLowerCase()) {
+        if (parts[0].toLowerCase() == LocationConstants.CANADA_PROVINCES['AB'].toLowerCase()) {
             const stateOrTerritory = 'AB';
 
             return {

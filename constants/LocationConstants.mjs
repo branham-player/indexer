@@ -119,4 +119,20 @@ export default class LocationConstants {
     }
 
     // endregion
+
+    // region Edge Cases
+
+    static get NEW_ENGLAND_AREA() {
+        return 'New England Area';
+    }
+
+    static get UNKNOWN() {
+        return 'Unknown';
+    }
+
+    static get UNKNOWN_LOCATION() {
+        return 'Unknown Location';
+    }
+
+    // endregion
 }
