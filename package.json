@@ -2,9 +2,9 @@
   "name": "indexer",
   "version": "1.0.0",
   "description": "A parser which indexes unstructured collections of data representing William Branham's complete sermon library and structures them for loading into a data ingester",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --experimental-modules index.mjs ../original-sources/ ./output.json"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,8 @@
   },
   "homepage": "https://github.com/branham-player/indexer#readme",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2"
+    "cheerio": "^1.0.0-rc.2",
+    "moment": "^2.24.0",
+    "title": "^3.4.1"
   }
 }
