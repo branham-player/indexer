@@ -17,8 +17,15 @@ export default class BuildingFormatter {
             };
         }
 
+        // Edge case: 51-0714
+        let displayName = title(this.buildingName);
+
+        if (displayName.toUpperCase().indexOf("IMA") != -1) {
+            displayName = displayName.replace("Ima", "IMA")
+        }
+
         return {
-            displayName: title(this.buildingName),
+            displayName: displayName,
             givenName: this.buildingName,
             known: true
         };

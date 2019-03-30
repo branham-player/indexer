@@ -36,11 +36,7 @@ export default class SpokenWordChurch {
             return;
         }
 
-        const pattern = new RegExp('^[0-9]{2}\-[0-9]{4}');
-        const dateWithoutModifier = pattern.exec(key);
-            
-        if (this.masterIndex.hasOwnProperty(dateWithoutModifier)) {
-            this.masterIndex[dateWithoutModifier].building = building;
-        }
+        console.log(`Unmatched sermon: ${key} ${building.givenName}`)
+        throw new Error()
     }
 }
