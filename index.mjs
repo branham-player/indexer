@@ -1,7 +1,9 @@
 'use strict';
 
-import BranhamOrg from './sources/BranhamOrg.mjs';
 import fs from 'fs';
+
+import BranhamOrg from './sources/BranhamOrg.mjs';
+import SpokenWordChurch from './sources/SpokenWordChurch.mjs';
 
 const args = process.argv;
 
@@ -16,5 +18,8 @@ const outputFileName = args[3];
 const masterIndex = {};
 const branhamOrg = new BranhamOrg(masterIndex, originalSermons);
 branhamOrg.process();
+
+const spokenWordChurch = new SpokenWordChurch(masterIndex, originalSermons);
+spokenWordChurch.process();
 
 fs.writeFileSync(outputFileName, JSON.stringify(masterIndex, null, 4)); 
