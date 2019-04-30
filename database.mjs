@@ -3,6 +3,7 @@
 import fs from 'fs';
 
 import BranhamOrg from './sources/BranhamOrg.mjs';
+import Cloudinary from './sources/Cloudinary.mjs';
 import SpokenWordChurch from './sources/SpokenWordChurch.mjs';
 
 const args = process.argv;
@@ -21,5 +22,8 @@ branhamOrg.process();
 
 const spokenWordChurch = new SpokenWordChurch(masterIndex, originalSermons);
 spokenWordChurch.process();
+
+const cloudinary = new Cloudinary(masterIndex);
+cloudinary.process();
 
 fs.writeFileSync(outputFileName, JSON.stringify(masterIndex, null, 4)); 
