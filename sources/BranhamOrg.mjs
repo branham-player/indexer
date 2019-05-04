@@ -4,6 +4,7 @@ import cheerio from 'cheerio';
 import fs from 'fs';
 
 import DateFormatter from '../formatters/DateFormatter.mjs';
+import IDFormatter from '../formatters/IDFormatter.mjs';
 import LocationFormatter from '../formatters/LocationFormatter.mjs';
 import TitleFormatter from '../formatters/TitleFormatter.mjs';
 import UrlFormatter from '../formatters/UrlFormatter.mjs'
@@ -33,15 +34,15 @@ export default class BranhamOrg {
 
                 const url = $(sermon).find('div.large-8.end a').attr('href');
 
-                const formattedDate = dateFormatter.format();
+                const idFormatter = new IDFormatter(date);
 
             // Edge case: 62-1030X
                 if (url != undefined && url != '') {
                     const urlFormatter = new UrlFormatter(url);
 
                     this.addToMasterIndex(
-                        formattedDate.givenDate.toUpperCase(),
-                        formattedDate,
+                        idFormatter.format(),
+                        dateFormatter.format(),
                         locationFormatter.format(),
                         titleFormatter.format(),
                         urlFormatter.format()

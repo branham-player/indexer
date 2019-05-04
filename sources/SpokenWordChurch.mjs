@@ -25,7 +25,10 @@ export default class SpokenWordChurch {
                 const building = $(row).children().last().text();
                 const buildingFormatter = new BuildingFormatter(building);
                 
-                this.addToMasterIndex(idFormatter.format(), buildingFormatter.format());
+                this.addToMasterIndex(
+                    idFormatter.format(),
+                    buildingFormatter.format()
+                );
             });
         });
     }
