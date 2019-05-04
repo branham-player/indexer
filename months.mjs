@@ -5,7 +5,7 @@ import fs from 'fs';
 const args = process.argv;
 
 if (args.length != 4) {
-    console.error('Expected two arguments: <path to database JSON file> <output file name>');
+    console.error('Expected two arguments: <path to full database JSON file> <output file name>');
     process.exit(1);
 }
 
@@ -15,8 +15,8 @@ const outputFileName = args[3];
 const json = JSON.parse(fs.readFileSync(database));
 const monthDictionary = {};
 
-for (let key in json) {
-    const month = json[key].date.date.substr(0, 7);
+for (let index in json) {
+    const month = json[index].date.date.substr(0, 7);
     monthDictionary[month] = true;
 }
 

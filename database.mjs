@@ -1,9 +1,8 @@
 'use strict';
 
-import fs from 'fs';
-
 import BranhamOrg from './sources/BranhamOrg.mjs';
 import Cloudinary from './sources/Cloudinary.mjs';
+import FullDatabasePrinter from './printers/FullDatabasePrinter.mjs';
 import SpokenWordChurch from './sources/SpokenWordChurch.mjs';
 
 const args = process.argv;
@@ -26,4 +25,5 @@ spokenWordChurch.process();
 const cloudinary = new Cloudinary(masterIndex);
 cloudinary.process();
 
-fs.writeFileSync(outputFileName, JSON.stringify(masterIndex, null, 4)); 
+const fullDatabasePrinter = new FullDatabasePrinter(masterIndex, outputFileName);
+fullDatabasePrinter.print();
