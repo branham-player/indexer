@@ -41,6 +41,7 @@ export default class DateFormatter {
             date: determinedDate,
             displayName: displayName,
             givenDate: this.givenDate,
+            known: assumptions == null,
             modifier: modifier
         };
     }

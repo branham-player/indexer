@@ -24,6 +24,7 @@ export default class LocationFormatter {
                 },
                 displayName:  LocationConstants.NEW_ENGLAND_AREA,
                 givenName: this.location,
+                known: false,
                 state: null
             }
         } else if (this.location.toLowerCase() == LocationConstants.UNKNOWN.toLowerCase() || this.location == '') {
@@ -32,6 +33,7 @@ export default class LocationFormatter {
                 country: null,
                 displayName: LocationConstants.UNKNOWN_LOCATION,
                 givenName: this.location,
+                known: false,
                 state: null
             };
         }
@@ -54,6 +56,7 @@ export default class LocationFormatter {
             country: country,
             displayName: formattedName,
             givenName: this.location,
+            known: city != null,
             state: state
         }
     }
