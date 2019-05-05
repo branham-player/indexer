@@ -1,19 +1,19 @@
 'use strict';
 
-export default class UrlFormatter {
+export default class AudioFormatter {
 
-    constructor(url) {
-        this.url = url.trim();
+    constructor(audioUrl) {
+        this.audioUrl = audioUrl.trim();
     }
 
     format() {
-        const secure = this.url.replace(
+        const secure = this.audioUrl.replace(
             /^https?:\/\/vgrm4a.branham.org/i,
             'https://s3.amazonaws.com/branhamorgstreaming'
         );
 
         return {
-            insecure: this.url,
+            insecure: this.audioUrl,
             secure: secure
         };
     }
