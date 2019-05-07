@@ -1,0 +1,24 @@
+name: $(SourceBranchName) $(Rev:r)
+pr: none
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+- task: PowerShell@2
+  displayName: 'Install package.json Dependencies'
+  inputs:
+    targetType: 'inline'
+    script: 'npm install'
+
+- task: PowerShell@2
+  displayName: 'Pull Original Sources Repository'
+  inputs:
+    targetType: 'inline'
+    script: 'git clone https://github.com/branham-player/original-sources.git ../original-sources'
+
+- task: PowerShell@2
+  displayName: 'Build the Database'
+  inputs:
+    targetType: 'inline'
+    script: 'npm run all'
