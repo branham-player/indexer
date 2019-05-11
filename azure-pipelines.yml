@@ -1,0 +1,25 @@
+name: $(SourceBranchName) $(Rev:r)
+pr: none
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+- script: |
+    npm install
+  displayName: 'Install package.json Dependencies'
+
+- script: |
+    git clone -q https://github.com/branham-player/original-sources.git
+  displayName: 'Pull Original Sources Repository'
+  
+- script: |
+    md output
+    node --experimental-modules database.mjs ./original-sources/ ./output/full.json ./output/condensed.json
+    node --experimental-modules months.mjs ./output/full.json ./output/months.json
+  displayName: 'Build the Database'
+
+- task: PublishPipelineArtifact@0
+  displayName: 'Save JSON Files'
+  inputs:
+    targetPath: 'output'
