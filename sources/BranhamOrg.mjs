@@ -37,7 +37,7 @@ export default class BranhamOrg {
                 const idFormatter = new IDFormatter(date);
 
             // Edge case: 62-1030X
-                if (audioUrl !== '') {
+                if (audioUrl !== undefined && audioUrl !== '') {
                     const audioFormatter = new AudioFormatter(audioUrl);
 
                     this.addToMasterIndex(

@@ -1,6 +1,6 @@
 # Indexer
 
-[![Build Status](https://dev.azure.com/branham-player/indexer/_apis/build/status/branham-player.indexer%20(1)?branchName=develop)](https://dev.azure.com/branham-player/indexer/_build/latest?definitionId=3&branchName=develop)
+[![Build Status](https://dev.azure.com/branham-player/indexer/_apis/build/status/branham-player.indexer%20(1)?branchName=develop)](https://dev.azure.com/branham-player/indexer/_build/latest?definitionId=3&branchName=develop) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ec56f20e947048bfa625922e210fe0fb)](https://www.codacy.com/app/branham-player/indexer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=branham-player/indexer&amp;utm_campaign=Badge_Grade)
 
 A parser which indexes unstructured collections of data representing William Branham's complete sermon library and structures them for loading into a data ingester.
 

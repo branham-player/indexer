@@ -5,7 +5,7 @@
   "main": "database.mjs",
   "scripts": {
     "all": "npm run database && npm run months",
-    "database": "node --experimental-modules database.mjs ../original-sources/ ./full.json ./condensed.json",
+    "database": "node --experimental-modules database.mjs ../original-sources ./full.json ./condensed.json",
     "months": "node --experimental-modules months.mjs ./full.json ./months.json"
   },
   "repository": {
