@@ -5,7 +5,7 @@ export default class DateConstants {
     // region Date Formatting
 
     static get DAY_MISSING() {
-        return 'MMMM[,] YYYY'
+        return 'MMMM[,] YYYY';
     }
 
     static get FULL_DATE() {

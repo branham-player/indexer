@@ -8,7 +8,7 @@ import SpokenWordChurch from './sources/SpokenWordChurch.mjs';
 
 const args = process.argv;
 
-if (args.length != 5) {
+if (args.length !== 5) {
     console.error('Expected two arguments: <path to original sermons> <full database output file name> <condensed database output file name>');
     process.exit(1);
 }

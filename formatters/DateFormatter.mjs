@@ -33,16 +33,16 @@ export default class DateFormatter {
             modifier = {
                 meaning: modifier.meaning,
                 symbol: modifier.symbol
-            }
+            };
         }
 
         return {
-            assumptions: assumptions,
+            assumptions,
             date: determinedDate,
-            displayName: displayName,
+            displayName,
             givenDate: this.givenDate,
             known: assumptions == null,
-            modifier: modifier
+            modifier
         };
     }
 
@@ -51,30 +51,30 @@ export default class DateFormatter {
         const givenDay = parseInt(this.givenDate.substr(5, 2));
         
         // Edge cases: 48-0000, 53-0500
-        if (givenMonthIndex == -1 && givenDay == 0) {
+        if (givenMonthIndex === -1 && givenDay === 0) {
             return {
                 day: {
                     assumedDay: 1,
-                    givenDay: givenDay
+                    givenDay
                 },
                 month: {
                     assumedMonthIndex: 0,
-                    givenMonthIndex: givenMonthIndex
+                    givenMonthIndex
                 }
             };
-        } else if (givenMonthIndex == -1) {
+        } else if (givenMonthIndex === -1) {
             return {
                 day: null,
                 month: {
                     assumedMonthIndex: 0,
-                    givenMonthIndex: givenMonthIndex
+                    givenMonthIndex
                 }
             };
-        } else if (givenDay == 0) {
+        } else if (givenDay === 0) {
             return {
                 day: {
                     assumedDay: 1,
-                    givenDay: givenDay
+                    givenDay
                 },
                 month: null
             };
@@ -107,7 +107,7 @@ export default class DateFormatter {
         const matches = pattern.exec(this.givenDate.toUpperCase());
 
         if (matches != null) {
-            const symbol = matches.toString();
+            let symbol = matches.toString();
             
             // Some places use "W" for wedding ceremonies, but Branham.org does not,
             // which is our source of truth, so map them to "X", as it does
@@ -119,9 +119,9 @@ export default class DateFormatter {
             const modifer = DateConstants.MODIFIERS[symbol];
 
             return {
-                displayName: displayName,
+                displayName,
                 meaning: modifer,
-                symbol: symbol
+                symbol
             };
         }
 

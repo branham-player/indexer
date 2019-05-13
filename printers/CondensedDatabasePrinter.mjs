@@ -10,7 +10,7 @@ export default class CondensedDatabasePrinter {
     }
 
     print() {
-        const masterArary = Object.keys(this.masterIndex).map(key => {
+        const masterArary = Object.keys(this.masterIndex).map((key) => {
             const entry = this.masterIndex[key];
 
             return {

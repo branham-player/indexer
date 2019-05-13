@@ -39,7 +39,7 @@ export default class SpokenWordChurch {
             return;
         }
 
-        console.log(`Unmatched sermon: ${key} ${building.givenName}`)
-        throw new Error()
+        console.log(`Unmatched sermon: ${key} ${building.givenName}`);
+        throw new Error();
     }
 }
