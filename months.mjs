@@ -4,7 +4,7 @@ import fs from 'fs';
 
 const args = process.argv;
 
-if (args.length != 4) {
+if (args.length !== 4) {
     console.error('Expected two arguments: <path to full database JSON file> <output file name>');
     process.exit(1);
 }
@@ -23,6 +23,6 @@ for (let index in json) {
 const months = Object.keys(monthDictionary);
 
 fs.writeFileSync(outputFileName, JSON.stringify({
-    months: months,
+    months,
     total: months.length
 }, null, 4)); 

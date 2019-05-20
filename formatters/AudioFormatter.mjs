@@ -14,7 +14,7 @@ export default class AudioFormatter {
 
         return {
             insecure: this.audioUrl,
-            secure: secure
+            secure
         };
     }
 }

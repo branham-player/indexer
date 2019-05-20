@@ -25,7 +25,7 @@ export default class Cloudinary {
             return;
         }
 
-        console.log(`Unmatched sermon: ${key} ${artwork.large}`)
-        throw new Error()
+        console.log(`Unmatched sermon: ${key} ${artwork.large}`);
+        throw new Error();
     }
 }

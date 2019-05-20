@@ -3,7 +3,7 @@
 import cheerio from 'cheerio';
 import fs from 'fs';
 
-import AudioFormatter from '../formatters/AudioFormatter.mjs'
+import AudioFormatter from '../formatters/AudioFormatter.mjs';
 import DateFormatter from '../formatters/DateFormatter.mjs';
 import IDFormatter from '../formatters/IDFormatter.mjs';
 import LocationFormatter from '../formatters/LocationFormatter.mjs';
@@ -37,7 +37,7 @@ export default class BranhamOrg {
                 const idFormatter = new IDFormatter(date);
 
             // Edge case: 62-1030X
-                if (audioUrl != undefined && audioUrl != '') {
+                if (audioUrl !== undefined && audioUrl !== '') {
                     const audioFormatter = new AudioFormatter(audioUrl);
 
                     this.addToMasterIndex(
@@ -66,10 +66,10 @@ export default class BranhamOrg {
 
         this.masterIndex[key] = {
             id: key,
-            audio: audio,
-            date: date,
-            location: location,
-            title: title
+            audio,
+            date,
+            location,
+            title
         };
     }
 }

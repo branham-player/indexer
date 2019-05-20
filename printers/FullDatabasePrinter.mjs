@@ -10,7 +10,7 @@ export default class FullDatabasePrinter {
     }
 
     print() {
-        const masterArary = Object.keys(this.masterIndex).map(key => {
+        const masterArary = Object.keys(this.masterIndex).map((key) => {
             return this.masterIndex[key];
         });
 

@@ -18,8 +18,8 @@ export default class ArtworkFormatter {
         }
 
         return {
-            "large": `https://cloudinary-a.akamaihd.net/branham-player/image/upload/c_fill,e_tint:30:black,g_center,h_${large},w_${large}/l_artwork:1:intermediate,o_50,g_center,h_${large},w_${large}/l_artwork:1:months:${month},g_center,h_${large},w_${large}/l_artwork:1:years:${year},g_center,h_${large},w_${large}/artwork/1/backgrounds/${year}/${month}.jpg`,
-            "thumbnail": `https://cloudinary-a.akamaihd.net/branham-player/image/upload/c_fill,e_tint:30:black,g_center,h_${thumbnail},w_${thumbnail}/l_artwork:1:intermediate,o_50,g_center,h_${thumbnail},w_${thumbnail}/l_artwork:1:months:${month},g_center,h_${thumbnail},w_${thumbnail}/l_artwork:1:years:${year},g_center,h_${thumbnail},w_${thumbnail}/artwork/1/backgrounds/${year}/${month}.jpg`
+            'large': `https://cloudinary-a.akamaihd.net/branham-player/image/upload/c_fill,e_tint:30:black,g_center,h_${large},w_${large}/l_artwork:1:intermediate,o_50,g_center,h_${large},w_${large}/l_artwork:1:months:${month},g_center,h_${large},w_${large}/l_artwork:1:years:${year},g_center,h_${large},w_${large}/artwork/1/backgrounds/${year}/${month}.jpg`,
+            'thumbnail': `https://cloudinary-a.akamaihd.net/branham-player/image/upload/c_fill,e_tint:30:black,g_center,h_${thumbnail},w_${thumbnail}/l_artwork:1:intermediate,o_50,g_center,h_${thumbnail},w_${thumbnail}/l_artwork:1:months:${month},g_center,h_${thumbnail},w_${thumbnail}/l_artwork:1:years:${year},g_center,h_${thumbnail},w_${thumbnail}/artwork/1/backgrounds/${year}/${month}.jpg`
         };
     }
 }

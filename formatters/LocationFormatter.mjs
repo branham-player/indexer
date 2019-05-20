@@ -15,7 +15,7 @@ export default class LocationFormatter {
 
     format() {
         // Edge cases: 48-0000, 53-0500, 58-0500
-        if (this.location.toLowerCase() == LocationConstants.NEW_ENGLAND_AREA.toLowerCase()) {
+        if (this.location.toLowerCase() === LocationConstants.NEW_ENGLAND_AREA.toLowerCase()) {
             return {
                 city: null,
                 country: {
@@ -26,8 +26,8 @@ export default class LocationFormatter {
                 givenName: this.location,
                 known: false,
                 state: null
-            }
-        } else if (this.location.toLowerCase() == LocationConstants.UNKNOWN.toLowerCase() || this.location == '') {
+            };
+        } else if (this.location.toLowerCase() === LocationConstants.UNKNOWN.toLowerCase() || this.location === '') {
             return {
                 city: null,
                 country: null,
@@ -52,13 +52,13 @@ export default class LocationFormatter {
         }
 
         return {
-            city: city,
-            country: country,
+            city,
+            country,
             displayName: formattedName,
             givenName: this.location,
             known: city != null,
-            state: state
-        }
+            state
+        };
     }
 
     getCity() {
@@ -66,7 +66,7 @@ export default class LocationFormatter {
         const presumedCity = parts.slice(0, parts.length - 1).join(' ');
 
         // Edge case: 55-0400
-        if (presumedCity.toLowerCase() == LocationConstants.CANADA_PROVINCES['AB'].toLowerCase()) {
+        if (presumedCity.toLowerCase() === LocationConstants.CANADA_PROVINCES['AB'].toLowerCase()) {
             return null;
         }
 
@@ -80,18 +80,18 @@ export default class LocationFormatter {
 
         // Canadaian territories and US states are always abbreviated to two
         // letters, like 'PA' or 'AB'
-        if (presumedStateOrTerritory.length == 2) {
+        if (presumedStateOrTerritory.length === 2) {
             if (LocationConstants.US_STATES.hasOwnProperty(stateOrTerritory)) {
                 return LocationConstants.UNITED_STATES;
             } else if (LocationConstants.CANADA_PROVINCES.hasOwnProperty(stateOrTerritory)) {
                 return LocationConstants.CANADA;
             }
         } else {
-            if (stateOrTerritory == LocationConstants.GERMANY.name.toUpperCase()) {
+            if (stateOrTerritory === LocationConstants.GERMANY.name.toUpperCase()) {
                 return LocationConstants.GERMANY;
-            } else if (stateOrTerritory == LocationConstants.SWITZERLAND.name.toUpperCase()) {
+            } else if (stateOrTerritory === LocationConstants.SWITZERLAND.name.toUpperCase()) {
                 return LocationConstants.SWITZERLAND;
-            } else if (stateOrTerritory == LocationConstants.CANADA.name.toUpperCase()) {
+            } else if (stateOrTerritory === LocationConstants.CANADA.name.toUpperCase()) {
                 return LocationConstants.CANADA;
             }
         }
@@ -104,7 +104,7 @@ export default class LocationFormatter {
         const presumedStateOrTerritory = parts[parts.length - 1];
 
         // Edge case: 55-0400
-        if (parts[0].toLowerCase() == LocationConstants.CANADA_PROVINCES['AB'].toLowerCase()) {
+        if (parts[0].toLowerCase() === LocationConstants.CANADA_PROVINCES['AB'].toLowerCase()) {
             const stateOrTerritory = 'AB';
 
             return {
@@ -115,7 +115,7 @@ export default class LocationFormatter {
 
         // Canadaian territories and US states are always abbreviated to two
         // letters, like 'PA' or 'AB'
-        if (presumedStateOrTerritory.length == 2) {
+        if (presumedStateOrTerritory.length === 2) {
             const stateOrTerritory = presumedStateOrTerritory.toUpperCase();
 
             if (LocationConstants.US_STATES.hasOwnProperty(stateOrTerritory)) {
