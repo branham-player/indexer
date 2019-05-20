@@ -68,7 +68,7 @@ export default class BranhamOrg {
             id: key,
             audio,
             date,
-            location: location,
+            location,
             title
         };
     }

@@ -26,7 +26,7 @@ export default class LocationFormatter {
                 givenName: this.location,
                 known: false,
                 state: null
-            }
+            };
         } else if (this.location.toLowerCase() === LocationConstants.UNKNOWN.toLowerCase() || this.location === '') {
             return {
                 city: null,
@@ -80,7 +80,7 @@ export default class LocationFormatter {
 
         // Canadaian territories and US states are always abbreviated to two
         // letters, like 'PA' or 'AB'
-        if (presumedStateOrTerritory.length == 2) {
+        if (presumedStateOrTerritory.length === 2) {
             if (LocationConstants.US_STATES.hasOwnProperty(stateOrTerritory)) {
                 return LocationConstants.UNITED_STATES;
             } else if (LocationConstants.CANADA_PROVINCES.hasOwnProperty(stateOrTerritory)) {

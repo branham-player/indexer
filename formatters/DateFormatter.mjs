@@ -88,14 +88,14 @@ export default class DateFormatter {
         let monthIndex = parseInt(this.givenDate.substr(3, 2)) - 1;
 
         // When only the year is known, the month is given as "00"
-        if (monthIndex == -1) {
+        if (monthIndex === -1) {
             monthIndex = 0;
         }
 
         let day = parseInt(this.givenDate.substr(5, 2));
 
         // When only the month and year are known, the day is given as "00"
-        if (day == 0) {
+        if (day === 0) {
             day = 1;
         }
 
@@ -111,7 +111,7 @@ export default class DateFormatter {
             
             // Some places use "W" for wedding ceremonies, but Branham.org does not,
             // which is our source of truth, so map them to "X", as it does
-            if (symbol == 'W') {
+            if (symbol === 'W') {
                 symbol = 'X';
             }
 
