@@ -35,7 +35,7 @@
   "homepage": "https://github.com/branham-player/indexer#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "title": "^3.4.1"
   }
 }
